@@ -1,0 +1,3 @@
+title=Chomiki Pancerne
+author=phiotr
+orientation=landscape
