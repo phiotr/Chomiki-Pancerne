@@ -21,7 +21,7 @@ class TrackViewer(Screen):
         self.looking_direction_x = 0
         self.looking_direction_y = 0
         self.eye_range_x = 120
-        self.eye_range_y = 80
+        self.eye_range_y = 85
         self.eye_offset = 3
 
         self._display_texture()
@@ -36,15 +36,12 @@ class TrackViewer(Screen):
         photo = self.list_of_track_images[self.current_image_number]
 
         self.left_eye_image.texture = \
-            photo.get_subimage(self.looking_direction_x, self.looking_direction_y, self.eye_range_x, self.eye_range_y)
+            photo.get_subimage(self.looking_direction_x, self.looking_direction_y,
+                               self.eye_range_x / 2, self.eye_range_y / 2)
         self.right_eye_image.texture = \
-            photo.get_subimage(self.looking_direction_x + self.eye_offset, self.looking_direction_y, self.eye_range_x, self.eye_range_y)
+            photo.get_subimage(self.looking_direction_x + self.eye_offset, self.looking_direction_y,
+                               self.eye_range_x /2, self.eye_range_y / 2)
 
-    # def on_touch_move(self, touch):
-    #     self.looking_direction_x = (int(touch.x) >> 1) % 360
-    #     self.looking_direction_y = (int(touch.y) % 180)
-    #
-    #     self._display_texture()
 
     def go_to_the_next_image(self):
         if self.current_image_number < self.last_image_number:
@@ -55,9 +52,6 @@ class TrackViewer(Screen):
         if self.current_image_number > 0:
             self.current_image_number -= 1
             self._display_texture()
-
-    # def on_scroll_motion(self):
-    #     print "scroll"
 
     def move_view_port(self, mouse_position):
 
