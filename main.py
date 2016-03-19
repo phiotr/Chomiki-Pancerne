@@ -17,9 +17,7 @@ class SomeApp(App):
 
     def build(self):
         Window.bind(on_motion=self.on_motion)
-        # Window.bind(on_keyboard=self.on_key_pressed)
         Window.bind(mouse_pos=self.on_mouse_move)
-        #Window.bind()
 
         Builder.load_file("kv/trackviewer.kv")
 

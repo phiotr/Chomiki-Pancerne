@@ -8,8 +8,6 @@ from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen
 from kivy.core.window import Window
 from views.trackimage import TrackImage
-from plyer import gyroscope
-from kivy.clock import Clock
 
 
 class TrackViewer(Screen):
