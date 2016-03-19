@@ -6,8 +6,10 @@
 
 from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen
-
+from kivy.core.window import Window
 from views.trackimage import TrackImage
+from plyer import gyroscope
+from kivy.clock import Clock
 
 
 class TrackViewer(Screen):
@@ -26,7 +28,6 @@ class TrackViewer(Screen):
 
         self._display_texture()
 
-
     def _read_images(self, list_of_files):
         self.list_of_track_images = [TrackImage(image_path) for image_path in list_of_files]
         self.current_image_number = 0
@@ -41,11 +42,11 @@ class TrackViewer(Screen):
         self.right_eye_image.texture = \
             photo.get_subimage(self.looking_direction_x + self.eye_offset, self.looking_direction_y, self.eye_range_x, self.eye_range_y)
 
-    def on_touch_move(self, touch):
-        self.looking_direction_x = (touch.x / 2) % 360
-        self.looking_direction_y = (touch.y / 2) % 180
-
-        self._display_texture()
+    # def on_touch_move(self, touch):
+    #     self.looking_direction_x = (int(touch.x) >> 1) % 360
+    #     self.looking_direction_y = (int(touch.y) % 180)
+    #
+    #     self._display_texture()
 
     def go_to_the_next_image(self):
         if self.current_image_number < self.last_image_number:
@@ -57,5 +58,15 @@ class TrackViewer(Screen):
             self.current_image_number -= 1
             self._display_texture()
 
-    def on_scroll_motion(self):
-        print "scroll"
+    # def on_scroll_motion(self):
+    #     print "scroll"
+
+    def move_view_port(self, mouse_position):
+
+        image_size = self.list_of_track_images[self.current_image_number].get_texture_size()
+
+        self.looking_direction_x = mouse_position[0] * 360 / Window.width
+        self.looking_direction_y = mouse_position[1] * 180 / Window.height
+
+        print "Looking at:", (self.looking_direction_x, self.looking_direction_y), "[deg]"
+        self._display_texture()
