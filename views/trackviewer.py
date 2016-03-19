@@ -26,13 +26,14 @@ class TrackViewer(Screen):
 
         self._display_texture()
 
+
     def _read_images(self, list_of_files):
         self.list_of_track_images = [TrackImage(image_path) for image_path in list_of_files]
         self.current_image_number = 0
         self.last_image_number = len(list_of_files) - 1
 
     def _display_texture(self):
-        print "Going to display textrue"
+        # print "Going to display textrue"
         photo = self.list_of_track_images[self.current_image_number]
 
         self.left_eye_image.texture = \
@@ -55,3 +56,6 @@ class TrackViewer(Screen):
         if self.current_image_number > 0:
             self.current_image_number -= 1
             self._display_texture()
+
+    def on_scroll_motion(self):
+        print "scroll"
