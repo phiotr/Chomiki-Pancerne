@@ -1,0 +1,20 @@
+<TrackView>:
+    fullscreen: True
+
+
+    left_eye_image: l_proj
+    right_eye_image: r_proj
+
+    BoxLayout:
+        orientation: "horizontal"
+        spacing: 10
+        padding: 10, 10, 10, 10
+        allow_strech: True
+
+        pos: root.pos
+        size: root.size
+
+        Image:
+            id: l_proj
+        Image:
+            id: r_proj
