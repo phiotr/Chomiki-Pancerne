@@ -40,12 +40,13 @@ class TrackImage:
         #     pix_y_center = pix_y_radius
         #     print "dolna krawedz"
 
-        if pix_x_center + pix_x_radius > self.texture.width:
-            pix_x_center = self.texture.width - pix_x_radius
+        if center_x + radius_x / 2 > 360:
+            pix_x_center = self.texture.width - pix_x_radius /2
+
             # print "za bardzo na prawo"
 
-        if pix_x_center - pix_x_radius < -60:
-            pix_x_center = pix_x_radius
+        if pix_x_center - pix_x_radius / 2 < 0:
+            pix_x_center = pix_x_radius / 2
             # print "za bardzo na lewo"
 
         return self.texture.get_region(int(pix_x_center), int(pix_y_center), int(pix_x_radius), int(pix_y_radius))

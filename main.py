@@ -21,8 +21,10 @@ class SomeApp(App):
 
         Builder.load_file("kv/trackviewer.kv")
 
-        track_impaths = ["tracks/R0010260.JPG", "tracks/R0010261.JPG", "tracks/R0010262.JPG", "tracks/R0010263.JPG",
-                         "tracks/R0010264.JPG",]
+        track_impaths = ["tracks/R00102%i.JPG" % idx for idx in range(60, 79)]
+        #
+        # track_impaths = ["tracks/R0010260.JPG", "tracks/R0010261.JPG", "tracks/R0010262.JPG", "tracks/R0010263.JPG",
+        #                  "tracks/R0010264.JPG", "tracks/R0010264.JPG",]
 
         self.track_viewer = TrackViewer(list_of_track_images=track_impaths)
         return self.track_viewer
@@ -44,14 +46,6 @@ class SomeApp(App):
 
         if hasattr(motion_event, "button") and motion_type == "end" and motion_event.button == "left":
             self.track_viewer.go_to_the_next_image()
-
-    # def on_key_pressed(self, window, key, *args):
-    #     print key, args
-    #     if key == 27:
-    #         return True
-    #     else:
-    #         return False
-
 
 
 if __name__ == '__main__':
