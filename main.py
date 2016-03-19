@@ -18,6 +18,7 @@ class SomeApp(App):
     def build(self):
         Window.bind(on_motion=self.on_motion)
         Window.bind(mouse_pos=self.on_mouse_move)
+        Window.bind(on_touch_move=self.on_mouse_move)
 
         Builder.load_file("kv/trackviewer.kv")
 
@@ -39,7 +40,11 @@ class SomeApp(App):
         return True
 
     def on_mouse_move(self, window, position):
-        self.track_viewer.move_view_port(position)
+
+        if isinstance(position, tuple):
+            self.track_viewer.move_view_port(position)
+        else:
+            self.track_viewer.move_view_port(position.pos)
 
     def on_motion(self, window, motion_type, motion_event):
         # print motion_event, dir(motion_event)
@@ -47,6 +52,8 @@ class SomeApp(App):
         if hasattr(motion_event, "button") and motion_type == "end" and motion_event.button == "left":
             self.track_viewer.go_to_the_next_image()
 
+    def on_click(self, *args):
+        self.track_viewer.go_to_the_next_image()
 
 if __name__ == '__main__':
     SomeApp().run()
