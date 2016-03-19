@@ -1,31 +1,19 @@
 # -*- coding: utf-8 -*-
 
 from kivy.app import App
-
 from kivy.lang import Builder
-
-from kivy.properties import ObjectProperty, NumericProperty, BooleanProperty
-
-from kivy.uix.widget import Widget
-from kivy.uix.button import Button
-from kivy.uix.label import Label
-
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.gridlayout import GridLayout
-
-kv = """
-
-"""
-
+from views.trackviewer import TrackViewer
+from views.trackimage import TrackImage
 
 class SomeApp(App):
 
     def build(self):
-        
-        Builder.load_string(kv)
-        
-        
-        return ...
+        Builder.load_file("kv/trackviewer.kv")
+
+        track_impaths = ["R0010260.JPG", ]
+        track_objects = [TrackImage("tracks/" + path) for path in track_impaths]
+
+        return TrackViewer(list_of_track_images=track_objects)
 
     def on_pause(self):
         return True
